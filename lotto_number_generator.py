@@ -6,7 +6,7 @@ import random
 NUMBERS_PER_LOTTO_ROW = 6
 NUMBERS_PER_JOKER_ROW = 5
 
-def generate_row(a_dict, num_per_row):
+def generate_row_non_repeating(a_dict, num_per_row):
     row = []
     keys = list(a_dict.keys())
     values  = list(a_dict.values())
@@ -15,6 +15,17 @@ def generate_row(a_dict, num_per_row):
         number = random.choices(keys, values)[0]
         values.remove(a_dict[number])
         keys.remove(number) 
+        row.append(str(number))
+
+    return row
+
+def generate_row_repeating(a_dict, num_per_row):
+    row = []
+    keys = list(a_dict.keys())
+    values  = list(a_dict.values())
+
+    for _ in range(num_per_row):
+        number = random.choices(keys, values)[0]
         row.append(str(number))
 
     return row
@@ -56,20 +67,26 @@ joker_data = soup.find_all('tbody')[1].find_all('td')
 joker_dict = dict()
 fill_dict(joker_dict, joker_data)
 
+viking_number_dict = dict()
+for i in range(1,9):
+    viking_number_dict[i] = lotto_dict[i]
+
 lotto_row_count = int(input('How many lotto rows do you want: '))
 joker_row_count = int(input('How many joker rows do you want: '))
 
 lotto_rows = []
 for _ in range(lotto_row_count):
-    lotto_rows.append(generate_row(lotto_dict, NUMBERS_PER_LOTTO_ROW))
+    lotto_rows.append(generate_row_non_repeating(lotto_dict, NUMBERS_PER_LOTTO_ROW))
 
 joker_rows = []
 for _ in range(joker_row_count):
-    joker_rows.append(generate_row(joker_dict, NUMBERS_PER_JOKER_ROW))
+    joker_rows.append(generate_row_repeating(joker_dict, NUMBERS_PER_JOKER_ROW))
 
 with open('lotto.txt', 'a+') as l:
     for row in lotto_rows:
         l.write(' '.join(row))
+        if choice.startswith('v'):
+            l.write(f' {generate_row_repeating(viking_number_dict, 1)[0]}')
         l.write('\n')
 
 with open('joker.txt', 'a+') as j:
