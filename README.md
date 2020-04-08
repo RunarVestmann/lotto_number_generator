@@ -2,9 +2,9 @@ A simple lotto number generator that scrapes the lotto website and generates num
 
 To generate numbers do the following:
 
-pip install beautifulsoup4
-pip install requests
+  pip install beautifulsoup4
+  pip install requests
 
-run lotto_number_generator.py
+  run lotto_number_generator.py
 
 After all that the numbers will appear in the txt files.
