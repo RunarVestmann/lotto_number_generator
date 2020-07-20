@@ -5,4 +5,4 @@ To generate numbers run the following commands:
 ## pip install beautifulsoup4 requests
 ## python lotto_number_generator.py
 
-After all that the numbers will appear in the txt files.
+After you've selected a lottery and how many rows you want the numbers will appear in txt files

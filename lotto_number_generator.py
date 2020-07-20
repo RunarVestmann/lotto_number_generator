@@ -47,7 +47,7 @@ def get_url():
     
     return url
 
-def get_number_per_lotto_row(url):
+def get_numbers_per_lotto_row(url):
     numbers_per_lotto_row = 5
 
     if url == LOTTO_URL:
@@ -105,7 +105,7 @@ def write_rows_to_file(filename, rows, viking_dict=None):
 
 def main():
     url = get_url()
-    numbers_per_lotto_row = get_number_per_lotto_row(url)
+    numbers_per_lotto_row = get_numbers_per_lotto_row(url)
     soup = get_soup(url)
     
     lotto_dict = get_dict(soup, False)
