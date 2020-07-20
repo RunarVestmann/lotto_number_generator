@@ -91,12 +91,17 @@ def get_rows(row_count, numbers_per_row, a_dict, repeating):
     return rows
 
 def write_rows_to_file(filename, rows, viking_dict=None):
-    with open(filename, 'a+') as f:
+    with open(filename, 'w') as f:
         for row in rows:
-            f.write(' '.join(row))
+            row_str = ' '.join(row)
+            f.write(row_str)
+            print(row_str, end=" ")
             if viking_dict != None:
-                f.write(f' {generate_row(viking_dict, 1, True)[0]}')
+                viking_number = generate_row(viking_dict, 1, True)[0]
+                f.write(" " + viking_number)
+                print(" " + viking_number, end="")
             f.write('\n')
+            print()
 
 def main():
     url = get_url()
@@ -113,7 +118,12 @@ def main():
     lotto_rows = get_rows(lotto_row_count, numbers_per_lotto_row, lotto_dict, False)
     joker_rows = get_rows(joker_row_count, NUMBERS_PER_JOKER_ROW, joker_dict, True)
 
+    print("Here are your lotto rows:")
     write_rows_to_file("lotto.txt", lotto_rows,viking_dict)
+
+    print()
+    
+    print("Here are your joker rows:")
     write_rows_to_file("joker.txt", joker_rows)
 
 main()
